@@ -21,11 +21,20 @@ public class Aeroplane {
     protected FlightStatus flightStatus;
     protected String flightNo;
     
-    
-    public Aeroplane()
+    public Aeroplane(String flightNo, Menus menu)
     {
+        this(flightNo, menu, 5, 5);
+    }
+    
+    public Aeroplane(String flightNo, Menus menu, int noEconomySeats, int noFirstClassSeats)
+    {
+        this.flightNo = flightNo;
+        this.noEconomySeats = noEconomySeats;
+        this.noFirstClassSeats = noFirstClassSeats;
+        this.menu = menu;
+        this.flightStatus = FlightStatus.READY;
         createSeats();
-        createMenus();
+        //createMenus();
     }
     
     public FlightStatus getFilghtStatus()
@@ -81,5 +90,11 @@ public class Aeroplane {
     public void changeStatus(FlightStatus newStatus)
     {
         
+    }
+    
+    public boolean checkThresholdToFly()
+    {
+        // check minimum no of seats to fill to fly the flight
+        return false;
     }
 }
