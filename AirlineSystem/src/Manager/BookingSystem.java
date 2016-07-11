@@ -31,7 +31,7 @@ public class BookingSystem {
     public ArrayList<String> getReadyFlights()
     {
         ArrayList<String> result = null;
-        // get all glifht nos with ready status
+        // get all flight nos with ready status
         return result;
     }
     
@@ -73,4 +73,14 @@ public class BookingSystem {
         // change the status and fly the flight
         // here will start new thread
     }
+    
+    public double getFleetProfit(){
+        double totalprofit=0;
+        for(Aeroplane flyg: aeroplanes){
+            totalprofit+=flyg.getPrice();
+        }
+        return totalprofit;
+    }
+        
+    
 }
