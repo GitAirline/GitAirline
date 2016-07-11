@@ -9,6 +9,13 @@ import Data.Aeroplane;
 import Data.FlightStatus;
 import Data.Menus;
 import Data.Seat;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 
 /**
@@ -79,8 +86,21 @@ public class BookingSystem {
         for(Aeroplane flyg: aeroplanes){
             totalprofit+=flyg.getPrice();
         }
-        return totalprofit;
+        return totalprofit*.3;
     }
         
+    private void profitlogger(){
+        Double vinst=getFleetProfit();       
+        try {            
+            File createFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\GitAirline\\AirlineSystem\\src\\Manager\\FleetProfit.txt");
+            FileOutputStream streamFile = new FileOutputStream(createFile);
+            OutputStreamWriter Skrivare = new OutputStreamWriter(streamFile);    
+            Writer Skrivut = new BufferedWriter(Skrivare);
+            Skrivut.write("Total profit for entire fleet is: "+vinst.toString());                        
+            Skrivut.close();
+        } catch (IOException e) {
+            System.err.println("Problem writing to the file statsTest.txt");
+        }
+    }   
     
 }
