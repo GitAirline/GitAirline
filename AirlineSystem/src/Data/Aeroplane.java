@@ -6,6 +6,7 @@
 package Data;
 
 import java.util.ArrayList;
+import java.util.function.BiFunction;
 
 /**
  *
@@ -42,12 +43,30 @@ public class Aeroplane {
         return this.flightStatus;
     }
     
+    public String getFlightNo()
+    {
+        return flightNo;
+    }
+    
     // This will create seat arraylist with seatNos and price only. 
     // For booking these seat nos will be listed and as per selected seat 
     // pessanger and food item is selected and added through reserveSeat
     protected void createSeats()
     {
+        Seat seat;
+        String seatNo = "E";
+        for(int i = 1; i <= noEconomySeats; ++ i)
+        {
+            seat = new Seat(seatNo+i, 5000);
+            economySeats.add(seat);
+        }
         
+        seatNo = "B";
+        for(int i = 1; i <= noEconomySeats; ++ i)
+        {
+            seat = new Seat(seatNo+i, 5000);
+            firstClassSeats.add(seat);
+        }
     }
     
     protected void createMenus()
@@ -55,9 +74,36 @@ public class Aeroplane {
         
     }
     
-    protected void reserveSeat(String seatNo, Person person, ArrayList<FoodItem> food)
+    public boolean reserveSeat(Seat seat)
     {
+        BiFunction<Seat, Seat, Boolean> reserve = (original, another) -> {
+          boolean res = false;
+          if(original.getSeatNo().equals(another.getSeatNo()))
+          {
+              original = another;
+              original.setStatus(Seat.SeatStatus.OCCUPIED);
+              res = true;
+          }
+          return res;
+        };
+        //boolean result = false;
+        for(Seat original : economySeats)
+        {
+            if(reserve.apply(original, seat))
+            {
+                return true;
+            }
+        }
         
+        for(Seat original : firstClassSeats)
+        {
+            if(reserve.apply(original, seat))
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     public long getPrice(String seatNo)
@@ -75,15 +121,25 @@ public class Aeroplane {
     
     public ArrayList<String> showAvailableEconomySeats()
     {
-        ArrayList<String> seatNos = null;
+        ArrayList<String> seatNos = new ArrayList<>();
         // get available seats;
+        for(Seat seat : economySeats)
+        {
+            if(seat.getStatus() == Seat.SeatStatus.FREE)
+                seatNos.add(seat.getSeatNo());
+        }
         return seatNos;
     }
     
     public ArrayList<String> showAvailableFirstClassSeats()
     {
-        ArrayList<String> seatNos = null;
+        ArrayList<String> seatNos = new ArrayList<>();
         // get available seats;
+        for(Seat seat : firstClassSeats)
+        {
+            if(seat.getStatus() == Seat.SeatStatus.FREE)
+                seatNos.add(seat.getSeatNo());
+        }
         return seatNos;
     }
     
