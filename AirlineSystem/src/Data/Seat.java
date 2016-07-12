@@ -11,21 +11,19 @@ import java.util.ArrayList;
  *
  * @author User
  */
-public class Seat {
-    protected String seatNo;
-    protected Person pessanger;
-    protected ArrayList<FoodItem> selectedFood;
-    protected double price;
+public class Seat implements SeatInterface {
+    private String seatNo;
+    private Person pessanger;
+    private ArrayList<FoodItem> selectedFood;
+    private double price;
     
-    public enum SeatStatus { FREE, OCCUPIED };
-    protected SeatStatus status;
+    private SeatStatus status;
     
-    public Seat(String seatNo, Person pessanger, ArrayList<FoodItem> food, double price)
+    public Seat(String seatNo, Person pessanger, ArrayList<FoodItem> food)
     {
         this.seatNo = seatNo;
         this.pessanger = pessanger;
         this.selectedFood = food;
-        this.price = price;
         this.status = SeatStatus.OCCUPIED;
     }
     
@@ -61,5 +59,11 @@ public class Seat {
     public void setStatus(SeatStatus status)
     {
         this.status = status;
+    }
+    
+    public double getPrice()
+    {
+        // implement to get price including seat and foor items
+        return price;
     }
 }

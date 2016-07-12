@@ -6,21 +6,22 @@
 package Data;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiFunction;
 
 /**
  *
  * @author User
  */
-public class Aeroplane {
+public class Aeroplane implements AeroplaneInterface{
     private int noEconomySeats = 5;
     private int noFirstClassSeats = 5;
     
-    protected ArrayList<Seat> economySeats = new ArrayList<>(noEconomySeats);
-    protected ArrayList<Seat> firstClassSeats = new ArrayList<>(noFirstClassSeats);
-    protected Menus menu;
-    protected FlightStatus flightStatus;
-    protected String flightNo;
+    private ArrayList<Seat> economySeats = new ArrayList<>(noEconomySeats);
+    private ArrayList<Seat> firstClassSeats = new ArrayList<>(noFirstClassSeats);
+    private Menus menu;
+    private FlightStatus flightStatus;
+    private String flightNo;
     
     public Aeroplane(String flightNo, Menus menu)
     {
@@ -80,8 +81,9 @@ public class Aeroplane {
           boolean res = false;
           if(original.getSeatNo().equals(another.getSeatNo()))
           {
-              original = another;
-              original.setStatus(Seat.SeatStatus.OCCUPIED);
+              original.setPessanger(another.getPessanger());
+             
+              original.setStatus(SeatStatus.OCCUPIED);
               res = true;
           }
           return res;
@@ -106,41 +108,27 @@ public class Aeroplane {
         return false;
     }
     
-    public long getPrice(String seatNo)
+    public double getPrice(String seatNo)
     {
         long price = 0;
         // go through seat type and menu items to get final price
         return price;
     }
     
-    public long getPrice()
+    public double getPrice()
     {
         // go through all seats and return collected rpice
         return 0;
     }
     
-    public ArrayList<String> showAvailableEconomySeats()
+    public List<? extends SeatInterface> getEconomySeats()
     {
-        ArrayList<String> seatNos = new ArrayList<>();
-        // get available seats;
-        for(Seat seat : economySeats)
-        {
-            if(seat.getStatus() == Seat.SeatStatus.FREE)
-                seatNos.add(seat.getSeatNo());
-        }
-        return seatNos;
+        return economySeats;
     }
     
-    public ArrayList<String> showAvailableFirstClassSeats()
+    public List<? extends SeatInterface> getFirstClassSeats()
     {
-        ArrayList<String> seatNos = new ArrayList<>();
-        // get available seats;
-        for(Seat seat : firstClassSeats)
-        {
-            if(seat.getStatus() == Seat.SeatStatus.FREE)
-                seatNos.add(seat.getSeatNo());
-        }
-        return seatNos;
+        return firstClassSeats;
     }
     
     public void changeStatus(FlightStatus newStatus)
@@ -152,5 +140,10 @@ public class Aeroplane {
     {
         // check minimum no of seats to fill to fly the flight
         return false;
+    }
+    
+    public boolean isReady()
+    {
+        return flightStatus == FlightStatus.READY;
     }
 }

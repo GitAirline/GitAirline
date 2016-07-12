@@ -6,6 +6,7 @@
 package Manager;
 
 import Data.Aeroplane;
+import Data.AeroplaneInterface;
 import Data.FlightStatus;
 import Data.FoodItem;
 import Data.Menus;
@@ -18,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,9 +33,19 @@ public class BookingSystem {
     public void addAeroplane()
     {
         Menus menu = createMenu();
-        String flightNo = flightSuffix + flightPrefix++;
+        String flightNo = generateFlightNo();
         
         aeroplanes.add(new Aeroplane(flightNo, menu));
+    }
+    
+    public void addAeroplane(Menus menu)
+    {
+        aeroplanes.add(new Aeroplane(generateFlightNo(), menu));
+    }
+    
+    public String generateFlightNo()
+    {
+        return flightSuffix + flightPrefix++;
     }
     
     protected Menus createMenu()
@@ -62,42 +74,9 @@ public class BookingSystem {
         return false;
     }
     
-    public ArrayList<String> getReadyFlights()
+    public List<? extends AeroplaneInterface> getFlights()
     {
-        ArrayList<String> result = null;
-        // get all flight nos with ready status
-        return result;
-    }
-    
-    public ArrayList<String> showAvailableEconomySeats(String flightNo)
-    {
-        ArrayList<String> seats = null;
-        // get aeroplane from list and call showAvailableEconomySeats for that aeroplane
-        //for(Seat seat : )
-        for(Aeroplane aeroplane : aeroplanes)
-        {
-            if(aeroplane.getFlightNo().equals(flightNo))
-            {
-                seats = aeroplane.showAvailableEconomySeats();
-                break;
-            }
-        }
-        return seats;
-    }
-    
-    public ArrayList<String> showAvailableFirstClassSeats(String flightNo)
-    {
-        ArrayList<String> seats = null;
-        // get aeroplane from list and call showAvailableFirstClassSeats for that aeroplane
-        for(Aeroplane aeroplane : aeroplanes)
-        {
-            if(aeroplane.getFlightNo().equals(flightNo))
-            {
-                seats = aeroplane.showAvailableFirstClassSeats();
-                break;
-            }
-        }
-        return seats;
+        return aeroplanes;
     }
     
     public boolean reserveFlight(String flightNo, Seat seat)
