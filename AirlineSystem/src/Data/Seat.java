@@ -44,7 +44,9 @@ public class Seat implements SeatInterface {
     }
     
     public void setPessanger(Person pessanger) {
+        System.out.println("In setPessanger " + pessanger.getFirstName());
         this.pessanger = pessanger;
+        System.out.println(this.pessanger.getFirstName());
     }
 
     public ArrayList<FoodItem> getSelectedFood() {

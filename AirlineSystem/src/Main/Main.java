@@ -37,11 +37,11 @@ public class Main {
         
         Person person = new Person(EnumTitle.MS, "abc", "def", "");
         
-        bsm.reserveFlight("GA1", new Seat("E1", person, null));
+        bsm.reserveFlight("GA1", "E2", person, null);
         eseats = bsm.getEconomySeats("GA1");
         for(SeatInterface si : eseats)
         {
-            System.out.println(si.getSeatNo() + " " + si.getStatus());
+            System.out.println(si.getSeatNo() + " " + si.getStatus() /*+ " " + si.getPessanger().getFirstName()*/);
         }
     }
 }

@@ -10,6 +10,7 @@ import Data.AeroplaneInterface;
 import Data.FlightStatus;
 import Data.FoodItem;
 import Data.Menus;
+import Data.Person;
 import Data.Seat;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -79,7 +80,7 @@ public class BookingSystem {
         return aeroplanes;
     }
     
-    public boolean reserveFlight(String flightNo, Seat seat)
+    public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food)
     {
         boolean status = false;
         // For selected flight call reserveSeat
@@ -88,7 +89,7 @@ public class BookingSystem {
         {
             if(aeroplane.getFlightNo().equals(flightNo))
             {
-                status = aeroplane.reserveSeat(seat);
+                status = aeroplane.reserveSeat(seatNo, person, food);
                 break;
             }
         }

@@ -6,7 +6,9 @@
 package Manager;
 
 import Data.AeroplaneInterface;
+import Data.FoodItem;
 import Data.Menus;
+import Data.Person;
 import Data.Seat;
 import Data.SeatInterface;
 import java.util.ArrayList;
@@ -48,11 +50,6 @@ public class BookingSystemManager implements ManagerInterface {
     }
 
     @Override
-    public boolean reserveFlight(String flightNo, Seat seat) {
-        return bookingSystem.reserveFlight(flightNo, seat);
-    }
-
-    @Override
     public List<? extends SeatInterface> getFirstClassSeats(String flightNo) {
        List<? extends AeroplaneInterface> list = bookingSystem.getFlights();
        for(AeroplaneInterface ai : list)
@@ -76,6 +73,11 @@ public class BookingSystemManager implements ManagerInterface {
         }
        // should throw exception
        return null;
+    }
+
+    @Override
+    public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food) {
+        return bookingSystem.reserveFlight(flightNo, seatNo, person, food);
     }
     
 }

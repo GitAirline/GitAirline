@@ -75,13 +75,13 @@ public class Aeroplane implements AeroplaneInterface{
         
     }
     
-    public boolean reserveSeat(Seat seat)
+    public boolean reserveSeat(String seatNo, Person person, ArrayList<FoodItem> food)
     {
-        BiFunction<Seat, Seat, Boolean> reserve = (original, another) -> {
+        BiFunction<Seat, String, Boolean> reserve = (original, another) -> {
           boolean res = false;
-          if(original.getSeatNo().equals(another.getSeatNo()))
+          if(original.getSeatNo().equals(another))
           {
-              original.setPessanger(another.getPessanger());
+              original.setPessanger(person);
              
               original.setStatus(SeatStatus.OCCUPIED);
               res = true;
@@ -91,7 +91,7 @@ public class Aeroplane implements AeroplaneInterface{
         //boolean result = false;
         for(Seat original : economySeats)
         {
-            if(reserve.apply(original, seat))
+            if(reserve.apply(original, seatNo))
             {
                 return true;
             }
@@ -99,7 +99,7 @@ public class Aeroplane implements AeroplaneInterface{
         
         for(Seat original : firstClassSeats)
         {
-            if(reserve.apply(original, seat))
+            if(reserve.apply(original, seatNo))
             {
                 return true;
             }

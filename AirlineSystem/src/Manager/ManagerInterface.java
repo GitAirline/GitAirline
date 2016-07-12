@@ -5,7 +5,9 @@
  */
 package Manager;
 
+import Data.FoodItem;
 import Data.Menus;
+import Data.Person;
 import Data.Seat;
 import Data.SeatInterface;
 import java.util.ArrayList;
@@ -22,5 +24,5 @@ public interface ManagerInterface {
     boolean removeAeroplane(String flightNo);
     void addAeroplane();
     void addAeroplane(Menus menu);
-    public boolean reserveFlight(String flightNo, Seat seat);
+    public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food);
 }
