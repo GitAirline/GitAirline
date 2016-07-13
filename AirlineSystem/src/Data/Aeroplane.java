@@ -89,7 +89,7 @@ public class Aeroplane implements AeroplaneInterface{
             }
             return res;
         };
-        //boolean result = false;
+        
         for(Seat original : economySeats)
         {
             if(reserve.apply(original, seatNo))
@@ -109,17 +109,11 @@ public class Aeroplane implements AeroplaneInterface{
         return false;
     }
     
-    /*private double getPrice(Seat seat)
-    {
-        double price = seat.getPrice();
-        for(FoodItem food : seat.getSelectedFood())
-        {
-            price += food.getPrice();
-        }
-        return price;
-    }*/
-    
     private Function<Seat, Double> getPrice = (seat) -> {
+        
+        if(seat.isFree())
+            return 0.0;
+        
         double price = seat.getPrice();
         for(FoodItem food : seat.getSelectedFood())
         {

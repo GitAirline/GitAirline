@@ -17,4 +17,5 @@ public interface SeatInterface {
     ArrayList<FoodItem> getSelectedFood();
     SeatStatus getStatus();
     double getPrice();
+    boolean isFree();
 }

@@ -72,4 +72,9 @@ public class Seat implements SeatInterface {
         // implement to get price including seat and foor items
         return price;
     }
+    
+    public boolean isFree()
+    {
+        return this.status == SeatStatus.FREE;
+    }
 }
