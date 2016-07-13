@@ -79,5 +79,10 @@ public class BookingSystemManager implements ManagerInterface {
     public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food) {
         return bookingSystem.reserveFlight(flightNo, seatNo, person, food);
     }
+
+    @Override
+    public boolean isFlightReady(String flightNo) {
+        return bookingSystem.isFlightReady(flightNo);
+    }
     
 }

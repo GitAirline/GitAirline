@@ -8,6 +8,7 @@ package Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  *
@@ -36,7 +37,7 @@ public class Aeroplane implements AeroplaneInterface{
         this.menu = menu;
         this.flightStatus = FlightStatus.READY;
         createSeats();
-        //createMenus();
+        
     }
     
     public FlightStatus getFilghtStatus()
@@ -47,6 +48,11 @@ public class Aeroplane implements AeroplaneInterface{
     public String getFlightNo()
     {
         return flightNo;
+    }
+    
+    public Menus getMenu()
+    {
+        return menu;
     }
     
     // This will create seat arraylist with seatNos and price only. 
@@ -70,23 +76,18 @@ public class Aeroplane implements AeroplaneInterface{
         }
     }
     
-    protected void createMenus()
-    {
-        
-    }
-    
     public boolean reserveSeat(String seatNo, Person person, ArrayList<FoodItem> food)
     {
         BiFunction<Seat, String, Boolean> reserve = (original, another) -> {
-          boolean res = false;
-          if(original.getSeatNo().equals(another))
-          {
-              original.setPessanger(person);
-             
-              original.setStatus(SeatStatus.OCCUPIED);
-              res = true;
-          }
-          return res;
+            boolean res = false;
+            if(original.getSeatNo().equals(another))
+            {
+                original.setPessanger(person);
+                original.setSelectedFood(food);
+                original.setStatus(SeatStatus.OCCUPIED);
+                res = true;
+            }
+            return res;
         };
         //boolean result = false;
         for(Seat original : economySeats)
@@ -108,17 +109,56 @@ public class Aeroplane implements AeroplaneInterface{
         return false;
     }
     
+    /*private double getPrice(Seat seat)
+    {
+        double price = seat.getPrice();
+        for(FoodItem food : seat.getSelectedFood())
+        {
+            price += food.getPrice();
+        }
+        return price;
+    }*/
+    
+    private Function<Seat, Double> getPrice = (seat) -> {
+        double price = seat.getPrice();
+        for(FoodItem food : seat.getSelectedFood())
+        {
+            price += food.getPrice();
+        }
+        return price;
+    };
+    
     public double getPrice(String seatNo)
     {
-        long price = 0;
-        // go through seat type and menu items to get final price
-        return price;
+        for(Seat seat : economySeats)
+        {
+            if(seat.getSeatNo().equals(seatNo)) {
+                return getPrice.apply(seat);
+            }
+        }
+        for(Seat seat : firstClassSeats)
+        {
+            if(seat.getSeatNo().equals(seatNo)) {
+                return getPrice.apply(seat);
+            }
+        }
+        
+        return 0;
     }
     
     public double getPrice()
     {
         // go through all seats and return collected rpice
-        return 0;
+        double price = 0;
+        for(Seat seat : economySeats)
+        {
+            price += getPrice.apply(seat);
+        }
+        for(Seat seat : firstClassSeats)
+        {
+            price += getPrice.apply(seat);
+        }
+        return price;
     }
     
     public List<? extends SeatInterface> getEconomySeats()
@@ -133,12 +173,14 @@ public class Aeroplane implements AeroplaneInterface{
     
     public void changeStatus(FlightStatus newStatus)
     {
-        
+        this.flightStatus = newStatus;
     }
     
     public boolean checkThresholdToFly()
     {
         // check minimum no of seats to fill to fly the flight
+        if(economySeats.size() >= 3 && firstClassSeats.size() >= 2)
+            return true;
         return false;
     }
     

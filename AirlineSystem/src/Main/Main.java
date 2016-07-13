@@ -24,10 +24,7 @@ public class Main {
         bsm.addAeroplane();
         
         ArrayList<String> flights = bsm.getReadyFlights();
-        for(String str : flights)
-        {
-            System.out.println(str);
-        }
+        flights.forEach(s -> System.out.println(s));
         
         List<? extends SeatInterface> eseats = bsm.getEconomySeats("GA1");
         for(SeatInterface si : eseats)

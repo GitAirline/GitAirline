@@ -82,15 +82,25 @@ public class BookingSystem {
     
     public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food)
     {
-        boolean status = false;
         // For selected flight call reserveSeat
         // if minimum criteria to fly is true, fly the flight
         for(Aeroplane aeroplane : aeroplanes)
         {
             if(aeroplane.getFlightNo().equals(flightNo))
             {
-                status = aeroplane.reserveSeat(seatNo, person, food);
-                break;
+                return aeroplane.reserveSeat(seatNo, person, food);
+            }
+        }
+        return false;
+    }
+    
+    public boolean isFlightReady(String flightNo)
+    {
+        for(Aeroplane aeroplane : aeroplanes)
+        {
+            if(aeroplane.getFlightNo().equals(flightNo))
+            {
+                return aeroplane.isReady();
             }
         }
         return false;

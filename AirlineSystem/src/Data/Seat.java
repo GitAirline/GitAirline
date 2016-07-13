@@ -31,7 +31,7 @@ public class Seat implements SeatInterface {
     {
         this.seatNo = seatNo;
         this.price = price;
-        this.selectedFood = new ArrayList<>();
+        this.selectedFood = new ArrayList<>(0);
         this.status = SeatStatus.FREE;
     }
 
@@ -51,6 +51,10 @@ public class Seat implements SeatInterface {
 
     public ArrayList<FoodItem> getSelectedFood() {
         return selectedFood;
+    }
+    
+    public void setSelectedFood(ArrayList<FoodItem> food) {
+        selectedFood = food;
     }
     
     public SeatStatus getStatus()
