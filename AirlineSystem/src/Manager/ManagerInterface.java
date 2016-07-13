@@ -5,6 +5,7 @@
  */
 package Manager;
 
+import Data.AeroplaneInterface;
 import Data.FoodItem;
 import Data.Menus;
 import Data.Person;
@@ -26,4 +27,5 @@ public interface ManagerInterface {
     void addAeroplane(Menus menu);
     public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food);
     public boolean isFlightReady(String flightNo);
+    List<? extends AeroplaneInterface> getFlights();
 }

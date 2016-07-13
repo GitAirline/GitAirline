@@ -40,5 +40,8 @@ public class Main {
         {
             System.out.println(si.getSeatNo() + " " + si.getStatus() /*+ " " + si.getPessanger().getFirstName()*/);
         }
+        
+        double price = bsm.getFlights().get(0).getPrice();
+        System.out.println(price);
     }
 }

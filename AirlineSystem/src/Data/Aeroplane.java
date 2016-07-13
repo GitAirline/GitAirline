@@ -115,9 +115,11 @@ public class Aeroplane implements AeroplaneInterface{
             return 0.0;
         
         double price = seat.getPrice();
-        for(FoodItem food : seat.getSelectedFood())
-        {
-            price += food.getPrice();
+        if(seat.getSelectedFood() != null) {
+            for(FoodItem food : seat.getSelectedFood())
+            {
+                price += food.getPrice();
+            }
         }
         return price;
     };

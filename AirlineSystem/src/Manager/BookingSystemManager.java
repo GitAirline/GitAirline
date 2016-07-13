@@ -84,5 +84,10 @@ public class BookingSystemManager implements ManagerInterface {
     public boolean isFlightReady(String flightNo) {
         return bookingSystem.isFlightReady(flightNo);
     }
+
+    @Override
+    public List<? extends AeroplaneInterface> getFlights() {
+        return bookingSystem.getFlights();
+    }
     
 }

@@ -15,8 +15,8 @@ public class FoodItem {
     protected String picture;
     protected double price;
     private String Id;
-    private String idSuffix = "F";
-    private static int idPrefix = 1;
+    private String idPrefix = "F";
+    private static int idSuffix = 1;
 
     public String getId() {
         return Id;
@@ -45,7 +45,7 @@ public class FoodItem {
     
     protected void createAndAssignId()
     {
-        this.Id = idSuffix + idPrefix++;
+        this.Id = idPrefix + idSuffix++;
     }
 
     public String getName() {

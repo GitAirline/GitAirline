@@ -7,6 +7,9 @@ public class Person {
     private String address;
     private String Id;
     
+    private String idPrefix = "P";
+    private static int idSuffix = 1;
+    
     public Person(EnumTitle title, String firstName, String lastName, String address) {
         this.title = title;
         this.firstName = firstName;
@@ -18,7 +21,7 @@ public class Person {
     
     protected void createAndAssignId()
     {
-        
+        this.Id = idPrefix + idSuffix++;
     }
 
     public EnumTitle getTitle() {
