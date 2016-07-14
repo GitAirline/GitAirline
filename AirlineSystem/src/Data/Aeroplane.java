@@ -55,6 +55,11 @@ public class Aeroplane implements AeroplaneInterface{
         return menu;
     }
     
+    public void setMenu(Menus menu)
+    {
+        this.menu = menu;
+    }
+    
     // This will create seat arraylist with seatNos and price only. 
     // For booking these seat nos will be listed and as per selected seat 
     // pessanger and food item is selected and added through reserveSeat
@@ -172,7 +177,7 @@ public class Aeroplane implements AeroplaneInterface{
         this.flightStatus = newStatus;
     }
     
-    public boolean checkThresholdToFly()
+    public boolean isReadyToFly()
     {
         // check minimum no of seats to fill to fly the flight
         if(economySeats.size() >= 3 && firstClassSeats.size() >= 2)

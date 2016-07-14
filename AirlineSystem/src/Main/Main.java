@@ -34,7 +34,18 @@ public class Main {
         
         Person person = new Person(EnumTitle.MS, "abc", "def", "");
         
+        bsm.reserveFlight("GA1", "E1", person, null);
         bsm.reserveFlight("GA1", "E2", person, null);
+        bsm.reserveFlight("GA1", "E3", person, null);
+        bsm.reserveFlight("GA1", "B1", person, null);
+        bsm.reserveFlight("GA1", "B2", person, null);
+        
+        bsm.reserveFlight("GA2", "E1", person, null);
+        bsm.reserveFlight("GA2", "E2", person, null);
+        bsm.reserveFlight("GA2", "E3", person, null);
+        bsm.reserveFlight("GA2", "B1", person, null);
+        bsm.reserveFlight("GA2", "B2", person, null);
+        
         eseats = bsm.getEconomySeats("GA1");
         for(SeatInterface si : eseats)
         {
@@ -43,5 +54,15 @@ public class Main {
         
         double price = bsm.getFlights().get(0).getPrice();
         System.out.println(price);
+        
+        /*System.out.println(bsm.removeAeroplane("GA2"));
+        flights = bsm.getReadyFlights();
+        flights.forEach(s -> System.out.println(s));*/
+        
+        if(bsm.isFlightReady("GA1")) {
+            bsm.flyFlight("GA1");
+        }
+        
+        bsm.getFlights().stream().filter(a -> bsm.isFlightReady(a.getFlightNo())).forEach(a -> bsm.flyFlight(a.getFlightNo()));
     }
 }

@@ -19,4 +19,5 @@ public interface AeroplaneInterface {
     List<? extends SeatInterface> getFirstClassSeats();
     boolean isReady();
     Menus getMenu();
+    boolean isReadyToFly();
 }

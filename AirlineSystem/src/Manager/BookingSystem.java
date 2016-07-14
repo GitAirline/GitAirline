@@ -21,6 +21,11 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.function.BiPredicate;
 
 /**
  *
@@ -28,8 +33,10 @@ import java.util.List;
  */
 public class BookingSystem {
     protected ArrayList<Aeroplane> aeroplanes = new ArrayList<>();
-    protected String flightSuffix = "GA";
-    protected int flightPrefix = 1;
+    protected String flightPrefix = "GA";
+    protected int flightSuffix = 1;
+    
+    ExecutorService pool = Executors.newFixedThreadPool(10);
     
     public void addAeroplane()
     {
@@ -46,7 +53,7 @@ public class BookingSystem {
     
     public String generateFlightNo()
     {
-        return flightSuffix + flightPrefix++;
+        return flightPrefix + flightSuffix++;
     }
     
     protected Menus createMenu()
@@ -70,8 +77,27 @@ public class BookingSystem {
         return menu;
     }
     
+    private BiPredicate<Aeroplane, String> isFlight = (aeroplane, flightNo) -> {
+        return aeroplane.getFlightNo().equals(flightNo);
+    };
+    
     public boolean removeAeroplane(String flightNo)
     {
+        if(aeroplanes != null)
+        {
+            Aeroplane removable = null;
+            for(Aeroplane a : aeroplanes)
+            {
+                if(isFlight.test(a, flightNo))
+                {
+                    removable = a;
+                    break;
+                }
+            }
+            
+            if(removable != null)
+                return aeroplanes.remove(removable);
+        }
         return false;
     }
     
@@ -86,7 +112,7 @@ public class BookingSystem {
         // if minimum criteria to fly is true, fly the flight
         for(Aeroplane aeroplane : aeroplanes)
         {
-            if(aeroplane.getFlightNo().equals(flightNo))
+            if(isFlight.test(aeroplane, flightNo))
             {
                 return aeroplane.reserveSeat(seatNo, person, food);
             }
@@ -98,7 +124,7 @@ public class BookingSystem {
     {
         for(Aeroplane aeroplane : aeroplanes)
         {
-            if(aeroplane.getFlightNo().equals(flightNo))
+            if(isFlight.test(aeroplane, flightNo))
             {
                 return aeroplane.isReady();
             }
@@ -108,20 +134,49 @@ public class BookingSystem {
     
     public Menus getMenu(String flightNo)
     {
-        Menus menu = null;
-        // return menu for selected flight
-        return menu;
+        for(Aeroplane aeroplane : aeroplanes)
+        {
+            if(isFlight.test(aeroplane, flightNo))
+            {
+                return aeroplane.getMenu();
+            }
+        }
+        return null;
+    }
+    
+    public boolean changeMenu(String flightNo, Menus menu)
+    {
+        for(Aeroplane aeroplane : aeroplanes)
+        {
+            if(isFlight.test(aeroplane, flightNo))
+            {
+                aeroplane.setMenu(menu);
+                return true;
+            }
+        }
+        return false;
     }
     
     public void changeFlightStatus(String flightNo, FlightStatus status)
     {
         // change flight status for selected flight
+        synchronized(this)
+        {
+            for(Aeroplane aeroplane : aeroplanes)
+            {
+                if(isFlight.test(aeroplane, flightNo))
+                {
+                    aeroplane.changeStatus(status);
+                }
+            }
+        }
     }
     
     public void flyFlight(String flightNo)
     {
         // change the status and fly the flight
         // here will start new thread
+        
     }
     
     public double getFleetProfit(){

@@ -6,6 +6,7 @@
 package Manager;
 
 import Data.AeroplaneInterface;
+import Data.FlightStatus;
 import Data.FoodItem;
 import Data.Menus;
 import Data.Person;
@@ -13,6 +14,8 @@ import Data.Seat;
 import Data.SeatInterface;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  *
@@ -36,7 +39,7 @@ public class BookingSystemManager implements ManagerInterface {
 
     @Override
     public boolean removeAeroplane(String flightNo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bookingSystem.removeAeroplane(flightNo);
     }
 
     @Override
@@ -88,6 +91,25 @@ public class BookingSystemManager implements ManagerInterface {
     @Override
     public List<? extends AeroplaneInterface> getFlights() {
         return bookingSystem.getFlights();
+    }
+
+    @Override
+    public void flyFlight(String flightNo) {
+        FlyFlight fly = new FlyFlight(bookingSystem, flightNo);
+        
+        Thread flying = new Thread(fly);
+        flying.start();
+       
+    }
+
+    @Override
+    public boolean changeMenu(String flightNo, Menus menu) {
+        return bookingSystem.changeMenu(flightNo, menu);
+    }
+    
+    @Override
+    public Menus getMenu(String flightNo) {
+        return bookingSystem.getMenu(flightNo);
     }
     
 }

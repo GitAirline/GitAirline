@@ -28,4 +28,7 @@ public interface ManagerInterface {
     public boolean reserveFlight(String flightNo, String seatNo, Person person, ArrayList<FoodItem> food);
     public boolean isFlightReady(String flightNo);
     List<? extends AeroplaneInterface> getFlights();
+    void flyFlight(String flightNo);
+    boolean changeMenu(String flightNo, Menus menu);
+    Menus getMenu(String flightNo);
 }
