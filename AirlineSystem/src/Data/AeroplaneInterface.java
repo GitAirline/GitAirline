@@ -20,4 +20,5 @@ public interface AeroplaneInterface {
     boolean isReady();
     Menus getMenu();
     boolean isReadyToFly();
+    FlightStatus getFilghtStatus();
 }
