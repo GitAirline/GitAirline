@@ -60,13 +60,13 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" min="-2" pref="329" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -109,7 +109,7 @@
                       <Component id="jLabel10" min="-2" pref="208" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="581" max="32767" attributes="0"/>
+              <EmptySpace pref="523" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
