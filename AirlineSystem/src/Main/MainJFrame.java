@@ -356,7 +356,7 @@ public class MainJFrame extends javax.swing.JFrame {
             int j=0;
             String[] mylist=new String[mymap.size()];
             for(String key:mymap.keySet() ){
-                mylist[j]=key+" "+mymap.get(key)+"€";  ++j;
+                mylist[j]="Flight NO: "+key+",    made profit: "+mymap.get(key)+"€";  ++j;
             }
             jList3.setListData(mylist);
                 
