@@ -190,7 +190,7 @@ public class BookingSystem {
         return totalprofit*.3;
     }
     
-    File logFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystem\\FleetProfit.txt");
+    File logFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\FleetProfit.txt");
     private void logProfit() {
         try {
             BufferedWriter bufferwriter = new BufferedWriter(new FileWriter(logFile, false));//"false" argument means create new file
@@ -199,10 +199,10 @@ public class BookingSystem {
             double fleet_vinst = 0;
             for (Aeroplane flyg : aeroplanes) {
                 fleet_vinst += flyg.getPrice();
-                outstring = flyg.getPrice() + " " + flyg.getFlightNo();
+                outstring = flyg.getPrice()*.3 + " " + flyg.getFlightNo();
                 thePrinter.println(outstring);
             }
-            thePrinter.println(fleet_vinst + " " +"The total profit of GitAirline");
+            thePrinter.println(getFleetProfit() + " " +"The total profit of GitAirline");
             thePrinter.close();
         } catch (IOException e) {
             System.out.println(e);
