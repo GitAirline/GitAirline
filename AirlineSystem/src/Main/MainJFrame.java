@@ -319,7 +319,12 @@ public class MainJFrame extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
 
-            bsm.flyFlight(seatNO);
+            bsm.flyFlight(selectedPlane);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             System.out.println("the selected flight is: " + jList1.getSelectedValue() + " " + "the selected index is: " + jList1.getSelectedIndex());
             {
@@ -328,7 +333,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 ArrayList<String> airay=new ArrayList<>();
                 for(AeroplaneInterface plane:air){
                     if(plane.getFilghtStatus()==FlightStatus.READY){
-                        System.out.println("flight status is:"+plane.getFilghtStatus());
+                        System.out.println(plane.getFlightNo()+" flight status is: "+plane.getFilghtStatus());
                         airay.add(plane.getFlightNo());
                     }
                 }               

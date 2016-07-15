@@ -190,7 +190,7 @@ public class BookingSystem {
         return totalprofit*.3;
     }
     
-    File logFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystemx\\FleetProfit.txt");
+    File logFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystem\\FleetProfit.txt");
     private void logProfit() {
         try {
             BufferedWriter bufferwriter = new BufferedWriter(new FileWriter(logFile, false));//"false" argument means create new file

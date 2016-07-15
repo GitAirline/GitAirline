@@ -123,7 +123,7 @@ public class BookingSystemManager implements ManagerInterface {
         String entity;
         double profit;
         try {
-            BufferedReader readFile = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystemx\\FleetProfit.txt\\FleetProfit.txt"));
+            BufferedReader readFile = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystem\\FleetProfit.txt"));
             StringBuilder sb = new StringBuilder();
             String output=readFile.readLine();
             while (output!= null){
