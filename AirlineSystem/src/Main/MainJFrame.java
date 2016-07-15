@@ -233,7 +233,7 @@ public class MainJFrame extends javax.swing.JFrame {
                                 .addGap(35, 35, 35)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCheckBox1)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(jLabel7))
@@ -264,7 +264,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(581, Short.MAX_VALUE))
+                .addContainerGap(523, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +330,7 @@ public class MainJFrame extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
 
-            bsm.flyFlight(selectedPlane);
+            if(selectedPlane!=null)  bsm.flyFlight(selectedPlane);
             
             /*******  Gives the time for JList1 to update it's item list  *****/
             try { Thread.sleep(500); } catch (InterruptedException ex) {}
