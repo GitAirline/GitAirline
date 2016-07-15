@@ -15,6 +15,7 @@ import Data.Seat;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -112,9 +113,11 @@ public class BookingSystem {
         // if minimum criteria to fly is true, fly the flight
         for(Aeroplane aeroplane : aeroplanes)
         {
-            if(isFlight.test(aeroplane, flightNo))
-            {
-                return aeroplane.reserveSeat(seatNo, person, food);
+            if(isFlight.test(aeroplane, flightNo))                
+            {                
+                aeroplane.reserveSeat(seatNo, person, food);                
+                logProfit();
+                return true;
             }
         }
         return false;
@@ -179,26 +182,32 @@ public class BookingSystem {
         
     }
     
-    public double getFleetProfit(){
+    private double getFleetProfit(){
         double totalprofit=0;
         for(Aeroplane flyg: aeroplanes){
             totalprofit+=flyg.getPrice();
         }
         return totalprofit*.3;
     }
-        
-    private void profitlogger(){
-        Double vinst=getFleetProfit();       
-        try {            
-            File createFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\GitAirline\\AirlineSystem\\src\\Manager\\FleetProfit.txt");
-            FileOutputStream streamFile = new FileOutputStream(createFile);
-            OutputStreamWriter Skrivare = new OutputStreamWriter(streamFile);    
-            Writer Skrivut = new BufferedWriter(Skrivare);
-            Skrivut.write("Total profit for entire fleet is: "+vinst.toString());                        
-            Skrivut.close();
+    
+    File logFile = new File("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystemx\\FleetProfit.txt");
+    private void logProfit() {
+        try {
+            BufferedWriter bufferwriter = new BufferedWriter(new FileWriter(logFile, false));//"false" argument means create new file
+            PrintWriter thePrinter = new PrintWriter(bufferwriter);
+            String outstring;
+            double fleet_vinst = 0;
+            for (Aeroplane flyg : aeroplanes) {
+                fleet_vinst += flyg.getPrice();
+                outstring = flyg.getPrice() + " " + flyg.getFlightNo();
+                thePrinter.println(outstring);
+            }
+            thePrinter.println(fleet_vinst + " " +"The total profit of GitAirline");
+            thePrinter.close();
         } catch (IOException e) {
-            System.err.println("Problem writing to the file statsTest.txt");
+            System.out.println(e);
         }
-    }   
+    }
+    
     
 }

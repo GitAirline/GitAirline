@@ -12,7 +12,12 @@ import Data.Menus;
 import Data.Person;
 import Data.Seat;
 import Data.SeatInterface;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -110,6 +115,33 @@ public class BookingSystemManager implements ManagerInterface {
     @Override
     public Menus getMenu(String flightNo) {
         return bookingSystem.getMenu(flightNo);
+    }   
+
+    
+    public LinkedHashMap<String, Double> readProfitLog() throws IOException {
+        LinkedHashMap<String,Double> mymap= new LinkedHashMap<>();
+        String entity;
+        double profit;
+        try {
+            BufferedReader readFile = new BufferedReader(new FileReader("C:\\Users\\User\\Documents\\NetBeansProjects\\AirlineSystem\\AirlineSystemx\\FleetProfit.txt\\FleetProfit.txt"));
+            StringBuilder sb = new StringBuilder();
+            String output=readFile.readLine();
+            while (output!= null){
+                
+                int i=output.indexOf(" ");                
+                profit=Double.parseDouble(output.substring(0,i));                
+               
+                entity=output.substring(i+1,output.length());
+                
+                mymap.put(entity, profit);
+                output=readFile.readLine();  
+                System.out.println("Booked seat gives profit: "+entity+" "+profit);
+            }            
+        } catch (FileNotFoundException ex) {} 
+        catch (IOException ex) { }  
+        return mymap;        
     }
+    
+    
     
 }
