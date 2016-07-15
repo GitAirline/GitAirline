@@ -9,6 +9,7 @@ import Manager.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -161,7 +162,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 0, 51));
-        jButton1.setText("Launch the plane!");
+        jButton1.setText("Launch/Update the planes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -320,11 +321,10 @@ public class MainJFrame extends javax.swing.JFrame {
             // TODO add your handling code here:
 
             bsm.flyFlight(selectedPlane);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            /*******  Gives the time for JList1 to update it's item list  *****/
+            try { Thread.sleep(500); } catch (InterruptedException ex) {}
+            /*******''''''''''''''''''''''''''''''''''''''''''''***************/
             
             System.out.println("the selected flight is: " + jList1.getSelectedValue() + " " + "the selected index is: " + jList1.getSelectedIndex());
             {
@@ -342,8 +342,17 @@ public class MainJFrame extends javax.swing.JFrame {
                 jList1.setListData(newlist);
             }
             
-            bsm.readProfitLog();
-            jList1.updateUI();
+            LinkedHashMap<String,Double> mymap= bsm.readProfitLog();
+            int j=0;
+            String[] mylist=new String[mymap.size()];
+            for(String key:mymap.keySet() ){
+                mylist[j]=key+" "+mymap.get(key)+"€";  ++j;
+            }
+            jList3.setListData(mylist);
+                
+            
+             
+            //jList1.updateUI();
         } catch (IOException ex) {
             System.out.println(ex);
         }
